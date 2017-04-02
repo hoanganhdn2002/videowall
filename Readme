@@ -1,0 +1,3 @@
+wget http://namvision.com/install.sh.tar.gz
+./install.sh
+tmux ls : kiem tra xem da tu tao tmux cua videowall chua, neu chua tao thi go them lenh : ./videowall.sh vay la okay
