@@ -1,4 +1,5 @@
 wget http://namvision.com/install.sh.tar.gz
+tar -xvf install.sh.tar.gz 
 ./install.sh
 tmux ls : kiểm tra xem đã tự tạo tmux của videowall chưa, nếu chưa tạo thì gõ thêm lệnh : ./videowall.sh vậy là okay
 Sau đấy vào tmux a -t videowall để kiểm tra xem phần mềm đã chạy chưa.
