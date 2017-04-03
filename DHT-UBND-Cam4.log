@@ -1,0 +1,4 @@
+Command line:
+./ffplay http://vpn.12h5.vp9.tv:5741
+[tcp @ 0x7ff0d0006d80] Connection to tcp://vpn.12h5.vp9.tv:5741 failed: No route to host
+http://vpn.12h5.vp9.tv:5741: No route to host
