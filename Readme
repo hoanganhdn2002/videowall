@@ -1,4 +1,4 @@
-wget http://namvision.com/install.sh.tar.gz
+wget http://namvision.com/install.sh.zip
 unzip -o install.sh.zip 
 ./install.sh
 tmux ls : kiểm tra xem đã tự tạo tmux của videowall chưa, nếu chưa tạo thì gõ thêm lệnh : ./videowall.sh vậy là okay
