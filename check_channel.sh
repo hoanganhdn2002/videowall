@@ -27,6 +27,7 @@ while true
 do
   channel_num=$(cat -n /home/$WHOAMI/list_camera.txt | tail -n 1 | cut -f1 | xargs)
   channel_play_life=$(ps xua | grep ffplay | grep -v grep | awk 'END {print NR}')
+  channel_play_die=$(ps xua | grep ffplay | grep "0:00" | grep -v grep | grep "window_title" | awk '{print $17}' | awk 'END {print NR}')
   # channel_play_life=12
   if [ $channel_play_life -eq $channel_num ]; then
     if [ $count -eq 0 ]; then
@@ -40,7 +41,7 @@ do
         sleep $set_time
   fi
       
-if [ $channel_play_life -ne $channel_num ]; then
+if [ $channel_play_die -le $channel_num ] && [ $channel_play_die -gt 1 ] ; then
       if [ $count -eq 0 ]; then
         count=$(($count+1))
         elif [ $count -eq 5 ]; then
@@ -54,6 +55,7 @@ if [ $channel_play_life -ne $channel_num ]; then
 fi
 
 done
+
 
 
 
