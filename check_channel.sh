@@ -14,11 +14,11 @@ status() {
         echo -e "{\n error: $channel_play,\n total: $channel_num,\n error_channels: $channel_die\n total_channels: $name_channel_num\n}" | sed 's/error:/"error":/g' | sed 's/total:/"total":/g' | sed 's/error_channels/"error_channels"/g' | sed 's/total_channels/"total_channels"/g' > /tmp/videowall.json
         echo -e "{\n error: $channel_play,\n total: $channel_num,\n error_channels: $channel_die\n total_channels: $name_channel_num\n}" | sed 's/error:/"error":/g' | sed 's/total:/"total":/g' | sed 's/error_channels/"error_channels"/g' | sed 's/total_channels/"total_channels"/g'
 }
+set_time=$(cat /tmp/time.txt) # Tùy chỉnh thời gian sau mỗi lần ghi ra file json
 while true
 do
   if [ ! -f ${CHECK_TIME} ]; then
     echo -n "1" > /tmp/time.txt # mặc định 1s ghi ra file json 1 lần
-    time=$(cat /tmp/time.txt) # Tùy chỉnh thời gian sau mỗi lần ghi ra file json
     else
 
        if [ $count -eq 0 ]; then
@@ -30,6 +30,6 @@ do
             fi
             status
             echo "$count "
-            sleep $time
+            sleep $set_time
       fi
 done
