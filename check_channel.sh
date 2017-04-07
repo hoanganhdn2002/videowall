@@ -3,12 +3,12 @@
 WHOAMI=$(whoami)
 HOSTNAME=$(hostname)
 CHECK_TIME="/tmp/time.txt"
-set=$(cat 1.txt)
 CHECK_SET="/home/vp9/1.txt"
 count=0
- if [ ! -f ${CHECK_SET} ]; then
+if [ ! -f ${CHECK_SET} ]; then
     echo -n '"' > 1.txt # mặc định 1s ghi ra file json 1 lần
-  fi
+fi
+set=$(cat 1.txt)
 #****************************Kiểm tra điều kiện kênh sống/chết và ghi ra file .json***********************************#
 status() {
 
@@ -37,4 +37,5 @@ do
       sleep $set_time
 
 done
+
 
