@@ -3,16 +3,21 @@
 WHOAMI=$(whoami)
 HOSTNAME=$(hostname)
 CHECK_TIME="/tmp/time.txt"
+set=$(cat 1.txt)
+CHECK_SET="/home/vp9/1.txt"
 count=0
+ if [ ! -f ${CHECK_SET} ]; then
+    echo -n '"' > 1.txt # mặc định 1s ghi ra file json 1 lần
+  fi
 #****************************Kiểm tra điều kiện kênh sống/chết và ghi ra file .json***********************************#
 status() {
 
         channel_num=$(cat -n /home/$WHOAMI/list_camera.txt | tail -n 1 | cut -f1 | xargs)
         channel_play=$(ps xua | grep ffplay | grep "0:00" | grep -v grep | grep "window_title" | awk '{print $17}' | awk 'END {print NR}')
-        name_channel_num=$(cat /home/$WHOAMI/list_camera.txt | awk '{for(i=4;i<=NF;i++) {printf $i ""} ; printf ", "}' | rev | sed s'/,/"/' | rev | sed -r -e 's/^.{0}/&"/' | iconv -f utf8 -t ascii//TRANSLIT)
-        channel_die=$(echo -e "$(ps xua | grep ffplay | grep "0:00" | grep -v grep | grep "window_title" | awk '{print $17}' ORS=', ' | rev | sed s'/,/"/' | rev | sed -r -e 's/^.{0}/&"/' )")
-        echo -e "{\n error: $channel_play,\n total: $channel_num,\n error_channels: $channel_die\n total_channels: $name_channel_num\n}" | sed 's/error:/"error":/g' | sed 's/total:/"total":/g' | sed 's/error_channels/"error_channels"/g' | sed 's/total_channels/"total_channels"/g' > /tmp/videowall.json
-        echo -e "{\n error: $channel_play,\n total: $channel_num,\n error_channels: $channel_die\n total_channels: $name_channel_num\n}" | sed 's/error:/"error":/g' | sed 's/total:/"total":/g' | sed 's/error_channels/"error_channels"/g' | sed 's/total_channels/"total_channels"/g'
+        name_channel_num=$(cat /home/$WHOAMI/list_camera.txt | awk '{for(i=4;i<=NF;i++) {printf $i ""} ; printf ","}' | rev | sed s'/,//' | rev | sed 's/,/, /g' | iconv -f utf8 -t ascii//TRANSLIT)
+        channel_die=$(ps xua | grep ffplay | grep "0:00" | grep -v grep | awk '{for(i=1;i<=NF;i++) {printf $i " "} ; printf "\n"}'| grep "window_title" | awk '{for(i=17;i<=17;i++) {printf $i ""} ; printf ","}' | rev | sed s'/,//' | rev | sed 's/,/, /g' | iconv -f utf8 -t ascii//TRANSLIT)
+        echo -e "{\n error: $channel_play,\n total: $channel_num,\n error_channels: $set$channel_die$set,\n total_channels: $set$name_channel_num$set\n}" | sed 's/error:/"error":/g' | sed 's/total:/"total":/g' | sed 's/total_channels/"total_channels"/g' | sed 's/error_channels/"error_channels"/g' > /tmp/videowall.json
+        echo -e "{\n error: $channel_play,\n total: $channel_num,\n error_channels: $set$channel_die$set,\n total_channels: $set$name_channel_num$set\n}" | sed 's/error:/"error":/g' | sed 's/total:/"total":/g' | sed 's/total_channels/"total_channels"/g' | sed 's/error_channels/"error_channels"/g'
 }
   if [ ! -f ${CHECK_TIME} ]; then
     echo -n "1" > /tmp/time.txt # mặc định 1s ghi ra file json 1 lần
@@ -30,4 +35,6 @@ do
       status
       echo "$count "
       sleep $set_time
+
 done
+
