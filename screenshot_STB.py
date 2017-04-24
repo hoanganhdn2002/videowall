@@ -1,9 +1,9 @@
+# -*- coding: utf-8 -*- 
 ###################################
 # Author: Anh Le Hoang            #
 # Email: hoanganhdn2002@gmail.com #
 ###################################
 #!/usr/bin/python
-# -*- coding: utf-8 -*- 
 import time, os, sys, socket, getpass, requests, logging # import các module trong python
 hostname = str(sys.argv[1])
 homedir = os.environ['HOME'] # lấy đường dẫn home của máy (/home/vp9)
